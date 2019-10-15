@@ -1,0 +1,13 @@
+&mosart_inparm
+ coupling_period = 10800
+ decomp_option = 'roundrobin'
+ delt_mosart = 3600
+ do_rtm = .true.
+ finidat_rtm = '20181130_BCRC_1850SPINUP_OIBGC.ne30_oECv3.edison.mosart.r.0370-01-01-00000.nc'
+ frivinp_rtm = '/compyfs/inputdata/rof/mosart/MOSART_global_half_20180721a.nc'
+ ice_runoff = .true.
+ rtmhist_mfilt = 30
+ rtmhist_ndens = 2
+ rtmhist_nhtfrq = 0
+ smat_option = 'Xonly'
+/
