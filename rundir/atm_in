@@ -16,8 +16,8 @@
  fexcl1		= 'CFAD_SR532_CAL','ANSNOW','ANRAIN','AQSNOW','AQRAIN','SNOWQM'
  fincl1		= 'RHREFHT', 'DF_O3', 'AQSO4_O3', 'AQSO4_H2O2', 'TREFHTMN:M', 'TREFHTMX:X', 'FLUT', 'PRECT', 'PRECC', 'U200',
          'U850', 'TMQ', 'OMEGA500', 'IEFLX'
- mfilt		= 1,365,120,120
- nhtfrq		= 0,-24,-3,-3
+ mfilt		= 1
+ nhtfrq		= 0
 /
 &cam_inparm
  bnd_topo		= '/compyfs/inputdata/atm/cam/topo/USGS-gtopo30_ne30np4_16xdel2-PFC-consistentSGH.nc'
@@ -33,12 +33,14 @@
 /
 &chem_inparm
  chlorine_loading_file		= '/compyfs/inputdata/atm/cam/chem/trop_mozart/ub/Linoz_Chlorine_Loading_CMIP6_0003-2017_c20171114.nc'
- chlorine_loading_type		= 'SERIAL'
+ chlorine_loading_fixed_ymd		= 18500101
+ chlorine_loading_type		= 'FIXED'
  clim_soilw_file		= '/compyfs/inputdata/atm/cam/chem/trop_mozart/dvel/clim_soilw.nc'
  depvel_file		= '/compyfs/inputdata/atm/cam/chem/trop_mozart/dvel/depvel_monthly.nc'
  depvel_lnd_file		= '/compyfs/inputdata/atm/cam/chem/trop_mozart/dvel/regrid_vegetation.nc'
  drydep_srf_file		= '/compyfs/inputdata/atm/cam/chem/trop_mam/atmsrf_ne30np4_110920.nc'
  exo_coldens_file		= '/compyfs/inputdata/atm/cam/chem/trop_mozart/phot/exo_coldens.nc'
+ ext_frc_cycle_yr		= 1850
  ext_frc_specifier		= 'SO2         -> /compyfs/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_so2_elev_1850-2014_c170525.nc',
          'SOAG        -> /compyfs/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_soag_elev_1850-2014_c170525.nc',
          'bc_a4       -> /compyfs/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_bc_a4_elev_1850-2014_c170525.nc',
@@ -48,14 +50,16 @@
          'pom_a4      -> /compyfs/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_pom_a4_elev_1850-2014_c170525.nc',
          'so4_a1      -> /compyfs/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_so4_a1_elev_1850-2014_c170525.nc',
          'so4_a2      -> /compyfs/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_so4_a2_elev_1850-2014_c170525.nc'
- ext_frc_type		= 'INTERP_MISSING_MONTHS'
+ ext_frc_type		= 'CYCLICAL'
  fstrat_list		= ' '
+ linoz_data_cycle_yr		= 1850
  linoz_data_file		= 'linoz1850-2015_2010JPL_CMIP6_10deg_58km_c20171109.nc'
  linoz_data_path		= '/compyfs/inputdata/atm/cam/chem/trop_mozart/ub'
- linoz_data_type		= 'INTERP_MISSING_MONTHS'
+ linoz_data_type		= 'CYCLICAL'
  rsf_file		= '/compyfs/inputdata/atm/waccm/phot/RSF_GT200nm_v3.0_c080811.nc'
  season_wes_file		= '/compyfs/inputdata/atm/cam/chem/trop_mozart/dvel/season_wes.nc'
- srf_emis_specifier		= 'DMS       -> /compyfs/inputdata/atm/cam/chem/trop_mozart_aero/emis/DMSflux.1850-2100.1deg_latlon_conserv.POPmonthlyClimFromACES4BGC_c20160727.nc',
+ srf_emis_cycle_yr		= 1850
+ srf_emis_specifier		= 'DMS       -> /compyfs/inputdata/atm/cam/chem/trop_mozart_aero/emis/DMSflux.1850.1deg_latlon_conserv.POPmonthlyClimFromACES4BGC_c20160416.nc',
          'SO2       -> /compyfs/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_so2_surf_1850-2014_c170525.nc',
          'bc_a4     -> /compyfs/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_bc_a4_surf_1850-2014_c170525.nc',
          'num_a1    -> /compyfs/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_num_a1_surf_1850-2014_c170525.nc',
@@ -64,12 +68,13 @@
          'pom_a4    -> /compyfs/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_pom_a4_surf_1850-2014_c170525.nc',
          'so4_a1    -> /compyfs/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_so4_a1_surf_1850-2014_c170525.nc',
          'so4_a2    -> /compyfs/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_so4_a2_surf_1850-2014_c170525.nc'
- srf_emis_type		= 'INTERP_MISSING_MONTHS'
+ srf_emis_type		= 'CYCLICAL'
+ tracer_cnst_cycle_yr		= 1849
  tracer_cnst_datapath		= '/compyfs/inputdata/atm/cam/chem/trop_mozart_aero/oxid'
  tracer_cnst_file		= 'oxid_1.9x2.5_L26_1850-2015_c20171110.nc'
  tracer_cnst_filelist		= ''
  tracer_cnst_specifier		= 'cnst_O3:O3','OH','NO3','HO2'
- tracer_cnst_type		= 'INTERP_MISSING_MONTHS'
+ tracer_cnst_type		= 'CYCLICAL'
  xactive_prates		= .false.
  xs_long_file		= '/compyfs/inputdata/atm/waccm/phot/temp_prs_GT200nm_JPL10_c130206.nc'
 /
@@ -279,11 +284,19 @@
  use_subcol_microp		= .false.
  waccmx_opt		= 'off'
 /
+&prescribed_ozone_nl
+ prescribed_ozone_cycle_yr		= 1850
+ prescribed_ozone_datapath		= '/compyfs/inputdata/atm/cam/ozone'
+ prescribed_ozone_file		= 'ozone_1.9x2.5_L26_1850clim_c090420.nc'
+ prescribed_ozone_name		= 'O3'
+ prescribed_ozone_type		= 'CYCLICAL'
+/
 &prescribed_volcaero_nl
+ prescribed_volcaero_cycle_yr		= 1
  prescribed_volcaero_datapath		= '/compyfs/inputdata/atm/cam/volc'
- prescribed_volcaero_file		= 'CMIP_DOE-ACME_radiation_1850-2014_v3_c20171205.nc'
+ prescribed_volcaero_file		= 'CMIP_DOE-ACME_radiation_average_1850-2014_v3_c20171204.nc'
  prescribed_volcaero_filetype		= 'VOLC_CMIP6'
- prescribed_volcaero_type		= 'SERIAL'
+ prescribed_volcaero_type		= 'CYCLICAL'
 /
 &rad_cnst_nl
  icecldoptics		= 'mitchell'
@@ -317,8 +330,9 @@
  trop_cloud_top_press		=       1.D2 
 /
 &solar_inparm
- solar_data_file		= '/compyfs/inputdata/atm/cam/solar/Solar_1850-2299_input4MIPS_c20171207.nc'
- solar_data_type		= 'SERIAL'
+ solar_data_file		= '/compyfs/inputdata/atm/cam/solar/Solar_1850control_input4MIPS_c20171101.nc'
+ solar_data_type		= 'FIXED'
+ solar_data_ymd		= 18500101
  solar_htng_spctrl_scl		= .true.
 /
 &spmd_dyn_inparm

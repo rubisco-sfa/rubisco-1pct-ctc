@@ -12,7 +12,7 @@
       <type>char</type>
       <desc>case description</desc>
     </entry>
-    <entry id="RUNDIR" value="/qfs/people/xumi699/E3SM_simulations/20191012.BDRD_CNPCTC20TR_OIBGC.ne30_oECv3.compy/run">
+    <entry id="RUNDIR" value="/qfs/people/xumi699/E3SM_simulations/20191017.RUBISCO_CO21PCT_CNPCTC20TR_OIBGC.ne30_oECv3.compy/run">
       <type>char</type>
       <desc>
       The directory where the executable will be run.
@@ -129,7 +129,7 @@
       Sets the run length along with STOP_N and STOP_DATE
     </desc>
     </entry>
-    <entry id="STOP_N" value="4">
+    <entry id="STOP_N" value="6">
       <type>integer</type>
       <desc>
       Provides a numerical count for $STOP_OPTION.
@@ -149,7 +149,7 @@
       sets frequency of model restart writes (same options as STOP_OPTION)
     </desc>
     </entry>
-    <entry id="REST_N" value="2">
+    <entry id="REST_N" value="3">
       <type>integer</type>
       <desc>
       sets model restart writes with REST_OPTION and REST_DATE
@@ -252,7 +252,7 @@
       timing tests.
     </desc>
     </entry>
-    <entry id="JOB_IDS" value="case.run:39066">
+    <entry id="JOB_IDS" value="case.run:39961">
       <type>char</type>
       <desc>List of job ids for most recent case.submit</desc>
     </entry>

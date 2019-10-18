@@ -26,9 +26,9 @@
  check_finidat_fsurdat_consistency = .false.
  check_finidat_year_consistency = .false.
  stream_fldfilename_ndep = '/compyfs/inputdata/lnd/clm2/ndepdata/fndep_elm_cbgc_exp_simyr1849-2006_1.9x2.5_c171012.nc' 
- hist_nhtfrq = 0                                                                         
- hist_mfilt = 1  
- hist_dov2xy = .true. 
+ hist_nhtfrq = 0,                                                                         
+ hist_mfilt = 1,  
+ hist_dov2xy = .true., 
  hist_fincl1 = 'TOTPRODC','LEAFC_STORAGE','LEAFC_XFER','FROOTC_STORAGE','FROOTC_XFER','LIVESTEMC_STORAGE','LIVESTEMC_XFER',
                'DEADSTEMC_STORAGE','DEADSTEMC_XFER','LIVECROOTC_STORAGE','LIVECROOTC_XFER','DEADCROOTC_STORAGE','DEADCROOTC_XFER',
                'GRESP_STORAGE','GRESP_XFER','TOTPRODN','DWT_PROD100C_GAIN','DWT_PROD10C_GAIN','COL_FIRE_CLOSS','COL_FIRE_NLOSS','DWT_CLOSS',
@@ -65,4 +65,10 @@
                'PPOOL_TO_FROOTP','PPOOL_TO_LIVESTEMP','PPOOL_TO_DEADSTEMP','PPOOL_TO_LIVECROOTP','PPOOL_TO_DEADCROOTP','LEAFP_XFER_TO_LEAFP',
                'FROOTP_XFER_TO_FROOTP','LIVESTEMP_XFER_TO_LIVESTEMP','DEADSTEMP_XFER_TO_DEADSTEMP','LIVECROOTP_XFER_TO_LIVECROOTP',
                'DEADCROOTP_XFER_TO_DEADCROOTP'
+
+ stream_year_first_ndep = 1850
+ stream_year_last_ndep = 1850
+
+ stream_year_last_popdens = 1850
+ flanduse_timeseries = '/compyfs/inputdata/lnd/clm2/surfdata_map/landuse.timeseries_ne30np4_hist_simyr1850_c20171102.nc'
 

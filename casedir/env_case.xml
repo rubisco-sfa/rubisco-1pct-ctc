@@ -252,7 +252,7 @@
       <desc> master configuration file that specifies all relevant filenames
     and directories to configure a case</desc>
     </entry>
-    <entry id="CASEROOT" value="/qfs/people/xumi699/E3SM_simulations/20191012.BDRD_CNPCTC20TR_OIBGC.ne30_oECv3.compy/case_scripts">
+    <entry id="CASEROOT" value="/qfs/people/xumi699/E3SM_simulations/20191017.RUBISCO_CO21PCT_CNPCTC20TR_OIBGC.ne30_oECv3.compy/case_scripts">
       <type>char</type>
       <desc>full pathname of case</desc>
     </entry>
@@ -261,15 +261,15 @@
       <valid_values>TRUE,FALSE</valid_values>
       <desc>user is not on the requested machine</desc>
     </entry>
-    <entry id="CIMEROOT" value="/qfs/projects/scratch/minxu/rubisco_cbgc/cbgc_1pct/20191012_BDRD_CNPCTC20TR_OIBGC_compy/cime">
+    <entry id="CIMEROOT" value="/qfs/projects/scratch/minxu/rubisco_cbgc/cbgc_1pct/20191017_RUBISCO_CO21PCT_CNPCTC20TR_OIBGC_compy/cime">
       <type>char</type>
       <desc>full pathname of CIME source root directory</desc>
     </entry>
-    <entry id="SRCROOT" value="/qfs/projects/scratch/minxu/rubisco_cbgc/cbgc_1pct/20191012_BDRD_CNPCTC20TR_OIBGC_compy">
+    <entry id="SRCROOT" value="/qfs/projects/scratch/minxu/rubisco_cbgc/cbgc_1pct/20191017_RUBISCO_CO21PCT_CNPCTC20TR_OIBGC_compy">
       <type>char</type>
       <desc>full pathname of source root directory</desc>
     </entry>
-    <entry id="CASE" value="20191012.BDRD_CNPCTC20TR_OIBGC.ne30_oECv3.compy">
+    <entry id="CASE" value="20191017.RUBISCO_CO21PCT_CNPCTC20TR_OIBGC.ne30_oECv3.compy">
       <type>char</type>
       <desc>case name</desc>
     </entry>
@@ -281,7 +281,7 @@
       <type>char</type>
       <desc>Machine name</desc>
     </entry>
-    <entry id="MACHDIR" value="/qfs/projects/scratch/minxu/rubisco_cbgc/cbgc_1pct/20191012_BDRD_CNPCTC20TR_OIBGC_compy/cime/config/e3sm/machines">
+    <entry id="MACHDIR" value="/qfs/projects/scratch/minxu/rubisco_cbgc/cbgc_1pct/20191017_RUBISCO_CO21PCT_CNPCTC20TR_OIBGC_compy/cime/config/e3sm/machines">
       <type>char</type>
       <desc>Machines directory location</desc>
     </entry>

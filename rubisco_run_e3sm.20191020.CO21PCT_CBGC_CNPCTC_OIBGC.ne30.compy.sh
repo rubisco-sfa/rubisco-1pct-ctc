@@ -13,11 +13,11 @@
 ### User must make changes for BCRC, BDRC, etc
 
 
-set job_name       = BDRD_1PCT_CNPCTC20TR_OIBGC
+set job_name       = RUBISCO_CO21PCT_CNPCTC20TR_OIBGC
 set compset        = BGCEXP_BDRD_CNPRDCTC_20TR
 set resolution     = ne30_oECv3
 set machine        = compy
-set walltime       = 2:00:00 #26:00:00
+set walltime       = 24:00:00 #26:00:00
 set mail_user      = false #set true to use together with email
 set email          =       #e.g. jinyuntang@lbl.gov
 setenv project       e3sm 
@@ -43,11 +43,11 @@ set seconds_before_delete_bld_dir    = -1
 set seconds_before_delete_run_dir    = -1
 
 ### SUBMIT OPTIONS
-set submit_run       = false
+set submit_run       = true
 set debug_queue      = false
 
 ### PROCESSOR CONFIGURATION
-set processor_config = custom_cbgc_1pct_compyshort
+set processor_config = custom_cbgc_1pct_compyregular
 
 ### STARTUP TYPE
 ### There will be standard directory under acme_inputdata for restart files... TBD
@@ -64,10 +64,10 @@ set short_term_archive_root_dir = default
 
 ### LENGTH OF SIMULATION, RESTARTS, AND ARCHIVING
 set stop_units                  = nyears
-set stop_num                    = 12 
+set stop_num                    = 6 
 set restart_units               = $stop_units
-set restart_num                 = 1
-set num_resubmits               = 0
+set restart_num                 = 3
+set num_resubmits               = 100
 set do_short_term_archiving     = false
 
 ### SIMULATION OPTIONS
@@ -1019,22 +1019,63 @@ $xmlchange_exe --id DEBUG --val `uppercase $debug_compile`
 # NOTE: $atm_output_freq and $records_per_atm_output_file are so commonly used, that they are set in the options at the top of this script.
 
 cat <<EOF >> user_nl_cam
- nhtfrq =  0, -24, -3, -3
- mfilt  = 1, 365, 120, 120
- avgflag_pertape = 'A','A','I','A'
+ nhtfrq =  0,
+ mfilt  = 1, 
+ avgflag_pertape = 'A',
  fexcl1 = 'CFAD_SR532_CAL','ANSNOW','ANRAIN','AQSNOW','AQRAIN','SNOWQM'
  fincl1 = 'RHREFHT','DF_O3','AQSO4_O3','AQSO4_H2O2','TREFHTMN:M','TREFHTMX:X','FLUT','PRECT','PRECC','U200','U850','TMQ','OMEGA500','IEFLX'
- fincl2 = 'U200','U850','V200','V850','Z500','UBOT','VBOT','OMEGA500','TREFHT','TS','TMQ','TREFHTMN:M','TREFHTMX:X','QREFHT','RHREFHT','PS','PSL','PRECT','PRECC','PRECSC','PRECSL','SNOWHLND','SNOWHICE','FLUT'
- fincl3 = 'PSL','T200','T500','U850','V850','UBOT','VBOT','TREFHT','TMQ'
- fincl4 = 'FLNT','FSNT','U200','U850','OMEGA500','PRECT','PRECC','FSDS','FSNS','FLDS','FLNS','SHFLX', 'LHFLX','QFLX','TS','TBOT','QBOT','TREFHT','QREFHT','PBLH','TUQ','TVQ','TUH','TVH','DTENDTQ','DTENDTH','FSNTC','FLNTC','FSNSC','FLNSC','CLDTOT','TGCLDLWP','TGCLDIWP'
  clubb_c14 = 1.17D0
 
-
+!co2 1pct
  bndtvghg = '${input_data_dir}/atm/cam/ggas/GHG_CMIP6_1pctCO2_c20180216.nc'
  scenario_ghg = 'RAMPED'
-
  ghg_yearStart_data = 1
  ghg_yearStart_model = 1850
+
+! chlorine
+ linoz_data_type                = 'CYCLICAL'
+ linoz_data_cycle_yr            = 1850 
+ chlorine_loading_fixed_ymd     = 18500101
+ chlorine_loading_type          = 'FIXED'   
+
+! for trace gases
+ ext_frc_cycle_yr               = 1850
+ ext_frc_type                   = 'CYCLICAL'
+
+
+ srf_emis_type                  = 'CYCLICAL' 
+ srf_emis_cycle_yr              = 1850
+ srf_emis_specifier             = 'DMS       -> /compyfs/inputdata/atm/cam/chem/trop_mozart_aero/emis/DMSflux.1850.1deg_latlon_conserv.POPmonthlyClimFromACES4BGC_c20160416.nc',
+         'SO2       -> /compyfs/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_so2_surf_1850-2014_c170525.nc',
+         'bc_a4     -> /compyfs/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_bc_a4_surf_1850-2014_c170525.nc',
+         'num_a1    -> /compyfs/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_num_a1_surf_1850-2014_c170525.nc',
+         'num_a2    -> /compyfs/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_num_a2_surf_1850-2014_c170525.nc',
+         'num_a4    -> /compyfs/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_num_a4_surf_1850-2014_c170525.nc',
+         'pom_a4    -> /compyfs/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_pom_a4_surf_1850-2014_c170525.nc',
+         'so4_a1    -> /compyfs/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_so4_a1_surf_1850-2014_c170525.nc',
+         'so4_a2    -> /compyfs/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_so4_a2_surf_1850-2014_c170525.nc'
+
+
+
+ tracer_cnst_cycle_yr           = 1849  
+ tracer_cnst_type               = 'CYCLICAL'  
+
+ prescribed_ozone_cycle_yr      = 1850                                  
+ prescribed_ozone_datapath      = '/compyfs/inputdata/atm/cam/ozone'  
+ prescribed_ozone_file          = 'ozone_1.9x2.5_L26_1850clim_c090420.nc'     
+ prescribed_ozone_name          = 'O3'                                        
+ prescribed_ozone_type          = 'CYCLICAL'                  
+
+
+
+ prescribed_volcaero_cycle_yr   = 1                                   
+ prescribed_volcaero_file       = 'CMIP_DOE-ACME_radiation_average_1850-2014_v3_c20171204.nc'   
+ prescribed_volcaero_filetype   = 'VOLC_CMIP6'                                                     
+ prescribed_volcaero_type       = 'CYCLICAL'    
+
+ solar_data_type                = 'FIXED'                                                        
+ solar_data_ymd                 = 18500101             
+ solar_data_file                = '/compyfs/inputdata/atm/cam/solar/Solar_1850control_input4MIPS_c20171101.nc' 
 
 EOF
 
@@ -1042,9 +1083,9 @@ cat <<EOF >> user_nl_clm
  check_finidat_fsurdat_consistency = .false.
  check_finidat_year_consistency = .false.
  stream_fldfilename_ndep = '/compyfs/inputdata/lnd/clm2/ndepdata/fndep_elm_cbgc_exp_simyr1849-2006_1.9x2.5_c171012.nc' 
- hist_nhtfrq = 0,-24,0,0                                                                         
- hist_mfilt = 1,365,1,1  
- hist_dov2xy = .true., .true., .false., .false. 
+ hist_nhtfrq = 0,                                                                         
+ hist_mfilt = 1,  
+ hist_dov2xy = .true., 
  hist_fincl1 = 'TOTPRODC','LEAFC_STORAGE','LEAFC_XFER','FROOTC_STORAGE','FROOTC_XFER','LIVESTEMC_STORAGE','LIVESTEMC_XFER',
                'DEADSTEMC_STORAGE','DEADSTEMC_XFER','LIVECROOTC_STORAGE','LIVECROOTC_XFER','DEADCROOTC_STORAGE','DEADCROOTC_XFER',
                'GRESP_STORAGE','GRESP_XFER','TOTPRODN','DWT_PROD100C_GAIN','DWT_PROD10C_GAIN','COL_FIRE_CLOSS','COL_FIRE_NLOSS','DWT_CLOSS',
@@ -1081,10 +1122,12 @@ cat <<EOF >> user_nl_clm
                'PPOOL_TO_FROOTP','PPOOL_TO_LIVESTEMP','PPOOL_TO_DEADSTEMP','PPOOL_TO_LIVECROOTP','PPOOL_TO_DEADCROOTP','LEAFP_XFER_TO_LEAFP',
                'FROOTP_XFER_TO_FROOTP','LIVESTEMP_XFER_TO_LIVESTEMP','DEADSTEMP_XFER_TO_DEADSTEMP','LIVECROOTP_XFER_TO_LIVECROOTP',
                'DEADCROOTP_XFER_TO_DEADCROOTP'
- hist_fincl2 = 'QRUNOFF_R','TWS','SOILWATER_10CM','QSOIL', 'QVEGE', 'QVEGT','GPP','QRUNOFF'
- hist_fincl3 = 'GPP','NEE','NEP','NPP','TLAI','TOTVEGC','TOTVEGN','TOTVEGP','FROOTC','FROOTN','FROOTP','LIVECROOTC','LIVECROOTN','LIVECROOTP','DEADCROOTC','DEADCROOTN','DEADCROOTP',
-               'LIVESTEMC','LIVESTEMN','LIVESTEMP','DEADSTEMC','DEADSTEMN','DEADSTEMP','TOTPFTC','TOTPFTN','TOTPFTP','PFT_FIRE_CLOSS','PFT_FIRE_NLOSS','PFT_FIRE_PLOSS','AR','HR','PCT_LANDUNIT','PCT_NAT_PFT'
- hist_fincl4 = 'TOTLITC','TOTLITN','TOTLITP','CWDC','CWDN','CWDP','DWT_CLOSS','DWT_NLOSS','DWT_PLOSS','HR','TOTCOLC','TOTCOLN','TOTCOLP','TOTECOSYSC','TOTECOSYSN','TOTECOSYSP','TOTSOMC','TOTSOMN','TOTSOMP'
+
+ stream_year_first_ndep = 1850
+ stream_year_last_ndep = 1850
+
+ stream_year_last_popdens = 1850
+ flanduse_timeseries = '/compyfs/inputdata/lnd/clm2/surfdata_map/landuse.timeseries_ne30np4_hist_simyr1850_c20171102.nc'
 
 EOF
 

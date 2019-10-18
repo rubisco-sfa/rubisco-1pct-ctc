@@ -132,14 +132,14 @@
     </entry>
   </group>
   <group id="build_def">
-    <entry id="CIME_OUTPUT_ROOT" value="/qfs/people/xumi699/E3SM_simulations/20191012.BDRD_CNPCTC20TR_OIBGC.ne30_oECv3.compy">
+    <entry id="CIME_OUTPUT_ROOT" value="/compyfs/minxu/E3SM_simulations/20191017.RUBISCO_CO21PCT_CNPCTC20TR_OIBGC.ne30_oECv3.compy">
       <type>char</type>
       <valid_values/>
       <desc>Output root directory for each machine.
 		Base directory for build and run directories.
     </desc>
     </entry>
-    <entry id="EXEROOT" value="/qfs/people/xumi699/E3SM_simulations/20191012.BDRD_CNPCTC20TR_OIBGC.ne30_oECv3.compy/build">
+    <entry id="EXEROOT" value="/qfs/people/xumi699/E3SM_simulations/20191017.RUBISCO_CO21PCT_CNPCTC20TR_OIBGC.ne30_oECv3.compy/build">
       <type>char</type>
       <valid_values/>
       <desc>Case executable root directory.

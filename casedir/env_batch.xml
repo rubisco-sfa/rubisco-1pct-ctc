@@ -61,12 +61,12 @@
       <type>char</type>
       <desc>project for project-sensitive build and run paths, and job scripts</desc>
     </entry>
-    <entry id="BATCH_COMMAND_FLAGS" value="--job-name=BDRD_1PCT_CNPCTC20TR_OIBGC --output=batch_output/20191012.BDRD_1PCT_CNPCTC20TR_OIBGC.ne30_oECv3.compy.o%j --time 24:00:00 -p slurm --account e3sm">
+    <entry id="BATCH_COMMAND_FLAGS" value="--job-name=RUBISCO_CO21PCT_CNPCTC20TR_OIBGC --output=batch_output/20191017.RUBISCO_CO21PCT_CNPCTC20TR_OIBGC.ne30_oECv3.compy.o%j --time 24:00:00 -p slurm --account e3sm">
       <type>char</type>
       <valid_values/>
       <desc>Override the batch submit command this job. Do not include executable or dependencies</desc>
     </entry>
-    <entry id="JOB_WALLCLOCK_TIME" value="2:00:00">
+    <entry id="JOB_WALLCLOCK_TIME" value="24:00:00">
       <type>char</type>
       <valid_values/>
       <desc>The machine wallclock setting.  Default determined in config_machines.xml can be overwritten by testing</desc>
@@ -76,7 +76,7 @@
       <valid_values/>
       <desc>The machine queue in which to submit the job.  Default determined in config_machines.xml can be overwritten by testing</desc>
     </entry>
-    <entry id="USER_REQUESTED_WALLTIME" value="2:00:00">
+    <entry id="USER_REQUESTED_WALLTIME" value="24:00:00">
       <type>char</type>
       <desc>Store user override for walltime</desc>
     </entry>
@@ -114,12 +114,12 @@
       <type>char</type>
       <desc>project for project-sensitive build and run paths, and job scripts</desc>
     </entry>
-    <entry id="BATCH_COMMAND_FLAGS" value="--job-name=ST+BDRD_CNPCTC20TR_OIBGC --output=batch_output/ST+20191012.BDRD_CNPCTC20TR_OIBGC.ne30_oECv3.compy.o%j --account=e3sm">
+    <entry id="BATCH_COMMAND_FLAGS" value="--job-name=ST+RUBISCO_CO21PCT_CNPCTC20TR_OIBGC --output=batch_output/ST+20191017.RUBISCO_CO21PCT_CNPCTC20TR_OIBGC.ne30_oECv3.compy.o%j --account=e3sm">
       <type>char</type>
       <valid_values/>
       <desc>Override the batch submit command this job. Do not include executable or dependencies</desc>
     </entry>
-    <entry id="JOB_WALLCLOCK_TIME" value="2:00:00">
+    <entry id="JOB_WALLCLOCK_TIME" value="24:00:00">
       <type>char</type>
       <valid_values/>
       <desc>The machine wallclock setting.  Default determined in config_machines.xml can be overwritten by testing</desc>
@@ -129,7 +129,7 @@
       <valid_values/>
       <desc>The machine queue in which to submit the job.  Default determined in config_machines.xml can be overwritten by testing</desc>
     </entry>
-    <entry id="USER_REQUESTED_WALLTIME" value="2:00:00">
+    <entry id="USER_REQUESTED_WALLTIME" value="24:00:00">
       <type>char</type>
       <desc>Store user override for walltime</desc>
     </entry>
