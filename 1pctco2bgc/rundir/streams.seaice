@@ -1,0 +1,489 @@
+<streams>
+<immutable_stream name="mesh"
+                  type="none"
+                  io_type="netcdf"
+                  filename_template="mesh_variables.nc" />
+
+<immutable_stream name="input"
+                  type="input"
+                  io_type="netcdf"
+                  filename_interval="none"
+                  filename_template="mpascice.rst.0370-01-01_00000.nc"
+                  input_interval="initial_only" />
+
+<!--
+The restart stream is actually controlled via the coupler.
+Changing output_interval here will not have any affect on
+the frequency restart files are written.
+
+Changing the output_interval could cause loss of data.
+
+The output_interval is set to 1 second to ensure each restart frame has a
+unique file.
+-->
+
+<immutable_stream name="restart"
+                  type="input;output"
+                  io_type="netcdf"
+                  filename_template="mpascice.rst.$Y-$M-$D_$S.nc"
+                  filename_interval="output_interval"
+                  input_interval="initial_only"
+                  clobber_mode="truncate"
+                  reference_time="01-01-01_00:00:00"
+                  output_interval="00-00-00_00:00:01" />
+
+<immutable_stream name="restart_ic"
+                  type="input"
+                  io_type="netcdf"
+                  filename_template="mpascice.rst.0370-01-01_00000.nc"
+                  filename_interval="none"
+                  input_interval="initial_only" />
+
+<stream name="output"
+        type="output"
+        io_type="netcdf"
+        filename_template="mpascice.hist.$Y-$M-$D_$S.nc"
+        filename_interval="00-01-00_00:00:00"
+        clobber_mode="truncate"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none">
+
+    <stream name="mesh"/>
+    <var name="xtime"/>
+    <var name="daysSinceStartOfSim"/>
+    <var name="iceAreaCell"/>
+    <var name="iceVolumeCell"/>
+    <var name="snowVolumeCell"/>
+    <var name="uVelocityGeo"/>
+    <var name="vVelocityGeo"/>
+
+</stream>
+
+<immutable_stream name="LYqSixHourlyForcing"
+                  type="input"
+                  io_type="netcdf"
+                  filename_template="forcing/atmosphere_forcing_six_hourly.$Y.nc"
+                  filename_interval="0001-00-00_00:00:00"
+                  reference_time="2000-01-01_03:00:00"
+                  input_interval="none" />
+
+<immutable_stream name="LYqMonthlyForcing"
+                  type="input"
+                  io_type="netcdf"
+                  filename_template="forcing/atmosphere_forcing_monthly.nc"
+                  filename_interval="none"
+                  input_interval="none" />
+
+<immutable_stream name="NCARMonthlySSTForcing"
+                  type="input"
+                  io_type="netcdf"
+                  filename_template="forcing/ocean_forcing_monthly.nc"
+                  filename_interval="none"
+                  input_interval="none" />
+
+<immutable_stream name="NCARMonthlyForcing"
+                  type="input"
+                  io_type="netcdf"
+                  filename_template="forcing/ocean_forcing_monthly.nc"
+                  filename_interval="none"
+                  input_interval="none" />
+
+<immutable_stream name="StandardAerosolsInput"
+                  type="input"
+                  io_type="netcdf"
+                  filename_template="standard_optics_mpas_cice.nc"
+                  filename_interval="none"
+                  input_interval="none" />
+
+<immutable_stream name="ModalAerosolsInput"
+                  type="input"
+                  io_type="netcdf"
+                  filename_template="snicar_optics_5bnd_mam_c140303_mpas_cice.nc"
+                  filename_interval="none"
+                  input_interval="none" />
+
+<immutable_stream name="abort_contents"
+                  type="none"
+                  filename_template="abort_variables.nc" />
+
+<stream name="abort_block"
+                  type="output"
+                  filename_template="abort_seaice_$Y-$M-$D_$h.$m.$s_block_$B.nc"
+                  filename_interval="none"
+                  clobber_mode="truncate"
+                  output_interval="none" >
+
+    <stream name="mesh"/>
+    <stream name="abort_contents"/>
+    <var name="daysSinceStartOfSim"/>
+    <var name="xtime"/>
+</stream>
+
+<stream name="abort"
+                  type="output"
+                  filename_template="abort_seaice_$Y-$M-$D_$h.$m.$s.nc"
+                  filename_interval="none"
+                  clobber_mode="truncate"
+                  output_interval="none" >
+
+    <stream name="mesh"/>
+    <stream name="abort_contents"/>
+    <var name="daysSinceStartOfSim"/>
+    <var name="xtime"/>
+</stream>
+
+<stream name="highFrequencyOutput"
+        type="output"
+        io_type="netcdf"
+        filename_template="mpascice.hist.am.highFrequencyOutput.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none"
+        clobber_mode="truncate"
+        packages="highFrequencyOutputAMPKG">
+
+    <var name="xtime"/>
+    <stream name="mesh"/>
+    <var name="iceAreaCellCategory1"/>
+</stream>
+
+<stream name="regionalStatisticsOutput"
+        type="output"
+        io_type="netcdf"
+        filename_template="mpascice.hist.am.regionalStatistics.$Y.$M.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="00-00-01_00:00:00"
+        clobber_mode="truncate"
+        packages="regionalStatisticsAMPKG">
+
+    <var name="xtime"/>
+    <var name="daysSinceStartOfSim"/>
+    <var name="totalIceArea"/>
+    <var name="totalIceExtent"/>
+    <var name="totalIceVolume"/>
+    <var name="totalSnowVolume"/>
+    <var name="totalKineticEnergy"/>
+    <var name="rmsIceSpeed"/>
+    <var name="averageAlbedo"/>
+    <var name="maximumIceVolume"/>
+    <var name="maximumIcePressure"/>
+</stream>
+
+<stream name="conservationCheckOutput"
+        type="output"
+        io_type="netcdf"
+        filename_template="mpascice.hist.am.conservationCheck.$Y.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="00-01-00_00:00:00"
+        clobber_mode="truncate"
+        packages="conservationCheckAMPKG">
+
+    <var name="xtime"/>
+    <var name="daysSinceStartOfSim"/>
+    <var name="initialEnergy"/>
+    <var name="finalEnergy"/>
+    <var name="energyChange"/>
+    <var name="netEnergyFlux"/>
+    <var name="absoluteEnergyError"/>
+    <var name="relativeEnergyError"/>
+    <var name="initialMass"/>
+    <var name="finalMass"/>
+    <var name="massChange"/>
+    <var name="netMassFlux"/>
+    <var name="absoluteMassError"/>
+    <var name="relativeMassError"/>
+    <var name="initialSalt"/>
+    <var name="finalSalt"/>
+    <var name="saltChange"/>
+    <var name="netSaltFlux"/>
+    <var name="absoluteSaltError"/>
+    <var name="relativeSaltError"/>
+</stream>
+
+<stream name="conservationCheckRestart"
+        type="input;output"
+        io_type="netcdf"
+        filename_template="mpascice.rst.am.conservationCheck.$Y-$M-$D_$S.nc"
+        filename_interval="output_interval"
+        clobber_mode="truncate"
+        packages="conservationCheckAMPKG"
+        input_interval="initial_only"
+        reference_time="01-01-01_00:00:00"
+        output_interval="stream:restart:output_interval">
+</stream>
+
+<stream name="loadBalanceOutput"
+        type="output"
+        io_type="netcdf"
+        filename_template="mpascice.hist.am.cice_loadBalance.$Y.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="00-00-00_01:00:00"
+        clobber_mode="truncate"
+        packages="loadBalanceAMPKG">
+
+    <var name="xtime"/>
+    <var name="nCellsProcWithSeaIce"/>
+    <var name="nCellsProc"/>
+</stream>
+
+<stream name="maximumIcePresenceOutput"
+        type="output"
+        io_type="netcdf"
+        filename_template="mpascice.hist.am.cice_maximumIcePresence.$Y.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="01-00-00_00:00:00"
+        clobber_mode="truncate"
+        packages="maximumIcePresenceAMPKG">
+
+    <var name="xtime"/>
+    <stream name="mesh"/>
+    <var name="maximumIcePresence"/>
+</stream>
+
+<stream name="timeSeriesStatsDailyOutput"
+        type="output"
+        io_type="netcdf"
+        filename_template="mpascice.hist.am.timeSeriesStatsDaily.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="00-00-01_00:00:00"
+        clobber_mode="truncate"
+        packages="timeSeriesStatsDailyAMPKG">
+</stream>
+
+<stream name="timeSeriesStatsDailyRestart"
+        type="input;output"
+        io_type="netcdf"
+        filename_template="mpascice.rst.am.timeSeriesStatsDaily.$Y-$M-$D_$S.nc"
+        filename_interval="output_interval"
+        clobber_mode="truncate"
+        packages="timeSeriesStatsDailyAMPKG"
+        input_interval="none"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none">
+</stream>
+
+<stream name="timeSeriesStatsMonthlyOutput"
+        type="output"
+        io_type="netcdf"
+        filename_template="mpascice.hist.am.timeSeriesStatsMonthly.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="00-01-00_00:00:00"
+        clobber_mode="truncate"
+        packages="timeSeriesStatsMonthlyAMPKG">
+
+    <var name="daysSinceStartOfSim"/>
+    <var name="icePresent"/>
+    <var name="iceAreaCell"/>
+    <var name="iceVolumeCell"/>
+    <var name="snowVolumeCell"/>
+    <var name="surfaceTemperatureCell"/>
+    <var name="uVelocityGeo"/>
+    <var name="vVelocityGeo"/>
+    <var name="shortwaveDown"/>
+    <var name="longwaveDown"/>
+    <var name="seaSurfaceTemperature"/>
+    <var name="seaSurfaceSalinity"/>
+    <var name="uOceanVelocityVertexGeo"/>
+    <var name="vOceanVelocityVertexGeo"/>
+    <var name="freezingMeltingPotential"/>
+    <var name="shortwaveScalingFactor"/>
+    <var name="airTemperature"/>
+    <var name="congelation"/>
+    <var name="frazilFormation"/>
+    <var name="snowiceFormation"/>
+    <var name="snowMelt"/>
+    <var name="surfaceIceMelt"/>
+    <var name="basalIceMelt"/>
+    <var name="lateralIceMelt"/>
+    <var name="airStressVertexUGeo"/>
+    <var name="airStressVertexVGeo"/>
+    <var name="icePressure"/>
+    <var name="divergence"/>
+    <var name="shear"/>
+    <var name="principalStress1Var"/>
+    <var name="principalStress2Var"/>
+    <var name="iceVolumeTendencyThermodynamics"/>
+    <var name="iceVolumeTendencyTransport"/>
+    <var name="iceAreaTendencyThermodynamics"/>
+    <var name="iceAreaTendencyTransport"/>
+    <var name="iceAgeTendencyThermodynamics"/>
+    <var name="iceAgeTendencyTransport"/>
+    <var name="iceAgeCell"/>
+    <var name="firstYearIceAreaCell"/>
+    <var name="levelIceAreaCell"/>
+    <var name="levelIceVolumeCell"/>
+    <var name="ridgedIceAreaAverage"/>
+    <var name="ridgedIceVolumeAverage"/>
+    <var name="bulkSalinity"/>
+    <var name="broadbandAlbedo"/>
+    <var name="absorbedShortwaveFluxInitialArea"/>
+    <var name="latentHeatFluxInitialArea"/>
+    <var name="sensibleHeatFluxInitialArea"/>
+    <var name="longwaveUpInitialArea"/>
+    <var name="evaporativeWaterFluxInitialArea"/>
+    <var name="meltPondAreaFinalArea"/>
+    <var name="meltPondDepthFinalArea"/>
+    <var name="meltPondLidThicknessFinalArea"/>
+    <var name="oceanHeatFlux"/>
+    <var name="oceanShortwaveFlux"/>
+    <var name="oceanFreshWaterFlux"/>
+    <var name="oceanSaltFlux"/>
+    <var name="uAirVelocity"/>
+    <var name="vAirVelocity"/>
+    <var name="totalVerticalBiologyIce"/>
+    <var name="totalChlorophyll"/>
+    <var name="primaryProduction"/>
+    <var name="bioShortwaveFlux"/>
+    <var name="netBrineHeight"/>
+    <var name="newlyFormedIce"/>
+    <var name="pondAreaCell"/>
+    <var name="snowThicknessChange"/>
+    <var name="snowAlbedoCell"/>
+    <var name="bareIceAlbedoCell"/>
+    <var name="pondAlbedoCell"/>
+    <var name="verticalAlgaeIceCell"/>
+    <var name="verticalNitrateIceCell"/>
+    <var name="verticalSilicateIceCell"/>
+    <var name="verticalAmmoniumIceCell"/>
+    <var name="verticalDMSIceCell"/>
+    <var name="verticalDMSPdIceCell"/>
+    <var name="verticalNonreactiveIceCell"/>
+    <var name="verticalHumicsIceCell"/>
+    <var name="verticalDissolvedIronIceCell"/>
+    <var name="iceEnthalpyCell"/>
+    <var name="iceSalinityCell"/>
+    <var name="oceanBioFluxes"/>
+    <var name="oceanBioConcentrations"/>
+    <var name="netNitrateUptake"/>
+    <var name="netAmmoniumUptake"/>
+    <var name="netSpecificAlgalGrowthRate"/>
+</stream>
+
+<immutable_stream name="pointLocationsInput"
+                  type="input"
+                  filename_template="/compyfs/inputdata/ice/mpas-cice/oEC60to30v3/seaice_points_EC.60to30v3_netcdf3_05152018.nc"
+                  input_interval="initial_only"
+                  runtime_format="single_file" />
+
+<stream name="pointwiseStatsOutput"
+        type="output"
+        io_type="netcdf"
+        filename_template="pointwiseStats.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="00-00-01_00:00:00"
+        clobber_mode="truncate"
+        packages="pointwiseStatsAMPKG"
+        runtime_format="single_file">
+
+    <var name="pointNames"/>
+    <var name="pointCellGlobalID"/>
+    <var name="xtime"/>
+    <var name="latCell"/>
+    <var name="lonCell"/>
+    <var name="latPoint"/>
+    <var name="lonPoint"/>
+    <var name="xPoint"/>
+    <var name="yPoint"/>
+    <var name="zPoint"/>
+    <var name="totalVerticalBiologyIce"/>
+    <var name="brineFractionCell"/>
+    <var name="netBrineHeight"/>
+    <var name="firstYearIceAreaCell"/>
+    <var name="levelIceAreaCell"/>
+    <var name="pondAreaCell"/>
+    <var name="surfaceIceMelt"/>
+    <var name="basalIceMelt"/>
+    <var name="lateralIceMelt"/>
+    <var name="congelation"/>
+    <var name="snowiceFormation"/>
+    <var name="frazilFormation"/>
+    <var name="snowThicknessChange"/>
+    <var name="snowAlbedoCell"/>
+    <var name="bareIceAlbedoCell"/>
+    <var name="pondAlbedoCell"/>
+    <var name="verticalAlgaeIceCell"/>
+    <var name="verticalNitrateIceCell"/>
+    <var name="verticalSilicateIceCell"/>
+    <var name="verticalAmmoniumIceCell"/>
+    <var name="verticalDMSIceCell"/>
+    <var name="verticalDMSPdIceCell"/>
+    <var name="verticalNonreactiveIceCell"/>
+    <var name="verticalHumicsIceCell"/>
+    <var name="verticalDissolvedIronIceCell"/>
+    <var name="iceEnthalpyCell"/>
+    <var name="iceSalinityCell"/>
+    <var name="oceanBioFluxes"/>
+    <var name="oceanBioConcentrations"/>
+    <var name="primaryProduction"/>
+    <var name="netNitrateUptake"/>
+    <var name="netAmmoniumUptake"/>
+    <var name="netSpecificAlgalGrowthRate"/>
+    <var name="totalChlorophyll"/>
+    <var name="iceAreaCell"/>
+    <var name="iceVolumeCell"/>
+    <var name="snowVolumeCell"/>
+    <var name="iceVolumeRidged"/>
+    <var name="oceanShortwaveFlux"/>
+    <var name="shortwaveDown"/>
+    <var name="bioShortwaveFlux"/>
+    <var name="daysSinceStartOfSim"/>
+    <var name="seaSurfaceSalinity"/>
+</stream>
+
+<stream name="timeSeriesStatsMonthlyRestart"
+        type="input;output"
+        io_type="netcdf"
+        filename_template="mpascice.rst.am.timeSeriesStatsMonthly.$Y-$M-$D_$S.nc"
+        filename_interval="output_interval"
+        clobber_mode="truncate"
+        packages="timeSeriesStatsMonthlyAMPKG"
+        input_interval="none"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none">
+</stream>
+
+<stream name="timeSeriesStatsClimatologyOutput"
+        type="output"
+        io_type="netcdf"
+        filename_template="mpascice.hist.am.timeSeriesStatsClimatology.$Y.nc"
+        filename_interval="00-01-00_00:00:00"
+        clobber_mode="truncate"
+        packages="timeSeriesStatsClimatologyAMPKG"
+        reference_time="01-01-01_00:00:00"
+        output_interval="10-00-00_00:00:00" >
+
+    <var name="daysSinceStartOfSim"/>
+    <var name="icePresent"/>
+    <var name="iceAreaCell"/>
+    <var name="iceVolumeCell"/>
+</stream>
+
+<stream name="timeSeriesStatsClimatologyRestart"
+        type="input;output"
+        io_type="netcdf"
+        filename_template="mpascice.rst.am.timeSeriesStatsClimatology.$Y-$M-$D_$S.nc"
+        filename_interval="output_interval"
+        clobber_mode="truncate"
+        packages="timeSeriesStatsClimatologyAMPKG"
+        input_interval="initial_only"
+        reference_time="01-01-01_00:00:00"
+        output_interval="stream:restart:output_interval">
+</stream>
+
+<stream name="landIceMasks"
+        type="input"
+        io_type="netcdf"
+        input_interval="initial_only"
+        filename_template="/compyfs/inputdata/ice/mpas-cice/oEC60to30v3/mpascice.rst.BCRC_CNPECACNT_1850_anvil02.0066-01-01.no-xtime.180418.nc">
+
+       <var name="landIceMask"/>
+</stream>
+
+</streams>

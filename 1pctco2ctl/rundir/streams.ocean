@@ -1,0 +1,743 @@
+<streams>
+
+<immutable_stream name="mesh"
+                  type="none"
+                  io_type="netcdf"
+                  filename_template="init.mpaso.rst.0370-01-01.nc"
+/>
+<immutable_stream name="input"
+                  type="input"
+                  io_type="netcdf"
+                  input_interval="initial_only"
+                  filename_template="mpaso.rst.0370-01-01_00000.nc"
+/>
+
+<!--
+The restart stream is actually controlled via the coupler.
+Changing output_interval here will not have any affect on
+the frequency restart files are written.
+
+Changing the output_interval could cause loss of data.
+
+The output_interval is set to 1 second to ensure each restart frame has a
+unique file.
+-->
+<immutable_stream name="restart"
+                  type="input;output"
+                  io_type="netcdf"
+                  filename_template="mpaso.rst.$Y-$M-$D_$S.nc"
+                  filename_interval="output_interval"
+                  clobber_mode="truncate"
+                  input_interval="initial_only"
+                  reference_time="01-01-01_00:00:00"
+                  output_interval="00-00-00_00:00:01"/>
+
+<!--
+output is the main history output stream. You can add auxiliary streams to
+this stream to include more fields.
+-->
+
+<stream name="output"
+        type="output"
+        io_type="netcdf"
+        filename_template="mpaso.hist.$Y-$M-$D_$S.nc"
+        filename_interval="00-01-00_00:00:00"
+        clobber_mode="truncate"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none">
+
+    <var_array name="activeTracerHorizontalAdvectionTendency"/>
+    <var_array name="activeTracerVerticalAdvectionTendency"/>
+    <var_array name="activeTracerVertMixTendency"/>
+    <var_array name="activeTracerSurfaceFluxTendency"/>
+    <var_array name="temperatureShortWaveTendency"/>
+    <var_array name="activeTracerNonLocalTendency"/>
+    <var name="salinitySurfaceRestoringTendency"/>
+    <var name="vertTransportVelocityTop"/>
+    <var name="vertGMBolusVelocityTop"/>
+    <var name="vertAleTransportTop"/>
+    <var name="tendSSH"/>
+    <var_array name="activeTracers"/>
+    <var name="layerThickness"/>
+    <var name="normalVelocity"/>
+    <var name="ssh"/>
+    <var name="maxLevelEdgeTop"/>
+    <var name="vertCoordMovementWeights"/>
+    <var name="edgeMask"/>
+    <var name="cellMask"/>
+    <var name="vertexMask"/>
+    <var name="refZMid"/>
+    <var name="refLayerThickness"/>
+    <var name="xtime"/>
+    <var name="kineticEnergyCell"/>
+    <var name="relativeVorticityCell"/>
+    <var name="relativeVorticity"/>
+    <var name="divergence"/>
+    <var name="areaCellGlobal"/>
+    <var name="areaEdgeGlobal"/>
+    <var name="areaTriangleGlobal"/>
+    <var name="volumeCellGlobal"/>
+    <var name="volumeEdgeGlobal"/>
+    <var name="CFLNumberGlobal"/>
+    <var name="BruntVaisalaFreqTop"/>
+    <var name="vertVelocityTop"/>
+    <var name="velocityZonal"/>
+    <var name="velocityMeridional"/>
+    <var name="displacedDensity"/>
+    <var name="potentialDensity"/>
+    <var name="pressure"/>
+    <var name="refBottomDepth"/>
+    <var name="zMid"/>
+    <var name="bottomDepth"/>
+    <var name="maxLevelCell"/>
+    <var name="maxLevelEdgeTop"/>
+    <var name="maxLevelEdgeBot"/>
+    <var name="columnIntegratedSpeed"/>
+    <var name="landIceFreshwaterFlux"/>
+    <var name="landIceHeatFlux"/>
+    <var name="heatFluxToLandIce"/>
+    <var_struct name="ecosysDiagFieldsLevel1"/>
+    <var_struct name="ecosysAuxiliary"/>
+</stream>
+
+<!--
+Block debugging stream produces a file per core where errors have occured.
+-->
+
+<stream name="block_debug_output"
+        type="output"
+        io_type="netcdf"
+        filename_template="mpaso.output_debug_block_$B.nc"
+        reference_time="01-01-01_00:00:00"
+        filename_interval="1000-00-00_00:00:00"
+        clobber_mode="truncate"
+        output_interval="1000-00-00_00:00:00">
+
+    <stream name="mesh"/>
+    <var name="xtime"/>
+    <var_struct name="tracers"/>
+    <var name="layerThickness"/>
+    <var name="normalVelocity"/>
+    <var name="ssh"/>
+
+</stream>
+
+<!--
+Streams between this line and the auxiliary stream line below are analysis member streams.
+They can be used to perform online analysis of the simulation and control the output of
+the analysis data.
+-->
+
+<stream name="transectMasksInput"
+        type="input"
+        filename_template="/compyfs/inputdata/ocn/mpas-o/oEC60to30v3/oEC60to30v3_Atlantic_region_and_southern_transect.nc"
+        input_interval="initial_only">
+
+        <var name="transectEdgeMasks"/>
+        <var name="transectNames"/>
+        <var name="nTransectsInGroup"/>
+        <var name="transectsInGroup"/>
+        <var name="transectGroupNames"/>
+        <var name="transectEdgeMaskSigns"/>
+</stream>
+
+<stream name="regionalMasksInput"
+        type="input"
+        filename_template="/compyfs/inputdata/ocn/mpas-o/oEC60to30v3/oEC60to30v3_Atlantic_region_and_southern_transect.nc"
+        input_interval="initial_only">
+
+        <var name="regionCellMasks"/>
+        <var name="regionNames"/>
+        <var name="nRegionsInGroup"/>
+        <var name="regionsInGroup"/>
+        <var name="regionGroupNames"/>
+</stream>
+
+<stream name="mocStreamfunctionOutput"
+        type="output"
+        filename_template="mpaso.hist.am.mocStreamfunctionOutput.$Y-$M-$D.nc"
+        filename_interval="01-00-00_00:00:00"
+        clobber_mode="truncate"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none"
+        packages="mocStreamfunctionAMPKG">
+
+        <var name="xtime"/>
+        <var name="mocStreamvalLatAndDepth"/>
+        <var name="mocStreamvalLatAndDepthRegion"/>
+        <var name="binBoundaryMocStreamfunction"/>
+        <var name="refBottomDepth"/>
+        <var name="regionGroupNames"/>
+        <var name="minMaxLatRegion"/>
+        <var name="regionNames"/>
+        <var name="nRegionsInGroup"/>
+        <var name="regionsInGroup"/>
+</stream>
+
+<stream name="globalStatsOutput"
+        type="output"
+        io_type="netcdf"
+        filename_template="mpaso.hist.am.globalStats.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="00-00-01_00:00:00"
+        clobber_mode="truncate"
+        packages="globalStatsAMPKG">
+
+    <var name="xtime"/>
+    <var name="daysSinceStartOfSim"/>
+    <var_array name="minGlobalStats"/>
+    <var_array name="maxGlobalStats"/>
+    <var_array name="sumGlobalStats"/>
+    <var_array name="rmsGlobalStats"/>
+    <var_array name="avgGlobalStats"/>
+    <var_array name="vertSumMinGlobalStats"/>
+    <var_array name="vertSumMaxGlobalStats"/>
+    <var name="volumeCellGlobal"/>
+    <var name="CFLNumberGlobal"/>
+</stream>
+
+<stream name="surfaceAreaWeightedAveragesOutput"
+        type="output"
+        io_type="netcdf"
+        filename_template="mpaso.hist.am.surfaceAreaWeightedAverages.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none"
+        clobber_mode="truncate"
+        packages="surfaceAreaWeightedAveragesAMPKG">
+
+    <var name="xtime"/>
+    <var name="daysSinceStartOfSim"/>
+    <var_array name="minValueWithinOceanRegion"/>
+    <var_array name="maxValueWithinOceanRegion"/>
+    <var_array name="avgValueWithinOceanRegion"/>
+</stream>
+
+<stream name="waterMassCensusOutput"
+        type="output"
+        io_type="netcdf"
+        filename_template="mpaso.hist.am.waterMassCensus.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none"
+        clobber_mode="truncate"
+        packages="waterMassCensusAMPKG">
+
+    <var name="xtime"/>
+    <var name="daysSinceStartOfSim"/>
+    <var_array name="waterMassCensusTemperatureValues"/>
+    <var_array name="waterMassCensusSalinityValues"/>
+    <var_array name="waterMassFractionalDistribution"/>
+    <var_array name="potentialDensityOfTSDiagram"/>
+    <var_array name="zPositionOfTSDiagram"/>
+</stream>
+
+<stream name="layerVolumeWeightedAverageOutput"
+        type="output"
+        io_type="netcdf"
+        filename_template="mpaso.hist.am.layerVolumeWeightedAverage.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none"
+        clobber_mode="truncate"
+        packages="layerVolumeWeightedAverageAMPKG">
+
+    <var name="xtime"/>
+    <var name="daysSinceStartOfSim"/>
+    <var_array name="minValueWithinOceanLayerRegion"/>
+    <var_array name="maxValueWithinOceanLayerRegion"/>
+    <var_array name="avgValueWithinOceanLayerRegion"/>
+    <var_array name="minValueWithinOceanVolumeRegion"/>
+    <var_array name="maxValueWithinOceanVolumeRegion"/>
+    <var_array name="avgValueWithinOceanVolumeRegion"/>
+</stream>
+
+<stream name="zonalMeanOutput"
+        type="output"
+        io_type="netcdf"
+        filename_template="mpaso.hist.am.zonalMeans.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none"
+        ulobber_mode="truncate"
+        packages="zonalMeanAMPKG">
+
+    <var name="xtime"/>
+    <var name="daysSinceStartOfSim"/>
+    <var_array name="tracersZonalMean"/>
+    <var name="binCenterZonalMean"/>
+    <var name="binBoundaryZonalMean"/>
+    <var name="velocityZonalZonalMean"/>
+    <var name="velocityMeridionalZonalMean"/>
+    <var name="refZMid"/>
+    <var name="refBottomDepth"/>
+</stream>
+
+<stream name="meridionalHeatTransportOutput"
+        type="output"
+        io_type="netcdf"
+        filename_template="mpaso.hist.am.meridionalHeatTransport.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="00-01-00_00:00:00"
+        clobber_mode="truncate"
+        packages="meridionalHeatTransportAMPKG">
+
+    <var name="xtime"/>
+    <var name="daysSinceStartOfSim"/>
+    <var name="binBoundaryMerHeatTrans"/>
+    <var name="meridionalHeatTransportLatZ"/>
+    <var name="meridionalHeatTransportLat"/>
+    <var name="refZMid"/>
+    <var name="refBottomDepth"/>
+</stream>
+
+<stream name="eddyProductVariablesOutput"
+        type="output"
+        io_type="netcdf"
+        filename_template="mpaso.hist.am.eddyProductVariables.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none"
+        clobber_mode="truncate"
+        packages="eddyProductVariablesAMPKG">
+
+    <var name="xtime"/>
+    <var name="SSHSquared"/>
+    <var name="velocityZonalSquared"/>
+    <var name="velocityMeridionalSquared"/>
+    <var name="velocityZonalTimesTemperature"/>
+    <var name="velocityMeridionalTimesTemperature"/>
+</stream>
+
+<stream name="highFrequencyOutput"
+        type="output"
+        io_type="netcdf"
+        filename_template="mpaso.hist.am.highFrequencyOutput.$Y-$M-$D_$h.$m.$s.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="00-00-05_00:00:00"
+        clobber_mode="truncate"
+        packages="highFrequencyOutputAMPKG">
+
+    <var name="xtime"/>
+    <var name="daysSinceStartOfSim"/>
+    <var_array name="activeTracersAtSurface"/>
+    <var_array name="activeTracersAt250m"/>
+    <var_array name="activeTracersAtBottom"/>
+    <var name="kineticEnergyAtSurface"/>
+    <var name="kineticEnergyAt250m"/>
+    <var name="relativeVorticityAt250m"/>
+    <var name="ssh"/>
+    <var name="pressureAdjustedSSH"/>
+    <var name="boundaryLayerDepth"/>
+    <var name="dThreshMLD"/>
+    <var name="tThreshMLD"/>
+    <var name="columnIntegratedSpeed"/>
+    <var name="barotropicSpeed"/>
+    <var name="landIceFreshwaterFlux"/>
+    <var name="pressureAdjustedSSH"/>
+    <var name="CO2_gas_flux"/>
+    <var name="CO2_alt_gas_flux"/>
+    <var name="avgOceanSurfacePhytoC"/>
+    <var name="avgOceanSurfaceDIC"/>
+    <var name="avgOceanSurfaceNO3"/>
+    <var name="avgOceanSurfaceSiO3"/>
+    <var name="avgOceanSurfaceNH4"/>
+    <var name="avgOceanSurfaceDOCr"/>
+    <var name="avgOceanSurfaceFeDissolved"/>
+    <var name="iceFluxPhytoC"/>
+    <var name="iceFluxNO3"/>
+    <var name="iceFluxSiO3"/>
+    <var name="iceFluxNH4"/>
+    <var name="iceFluxFeDissolved"/>
+    <var name="iceFluxDOC"/>
+    <var name="ecosys_diag_photoC_TOT_zint"/>
+</stream>
+
+<stream name="mixedLayerDepthsOutput"
+        type="output"
+        io_type="netcdf"
+        filename_template="mpaso.hist.am.mixedLayerDepths.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none"
+        clobber_mode="truncate"
+        packages="mixedLayerDepthsAMPKG">
+
+    <var name="xtime"/>
+    <var name="daysSinceStartOfSim"/>
+    <var name="tThreshMLD"/>
+    <var name="dThreshMLD"/>
+</stream>
+
+<stream name="timeSeriesStatsDailyOutput"
+        type="output"
+        io_type="netcdf"
+        filename_template="mpaso.hist.am.timeSeriesStatsDaily.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="00-00-01_00:00:00"
+        clobber_mode="truncate"
+        packages="timeSeriesStatsDailyAMPKG"
+        runtime_format="single_file">
+
+    <var_array name="tracersSurfaceValue"/>
+    <var_array name="surfaceVelocity"/>
+    <var_array name="SSHGradient"/>
+    <var name="xtime"/>
+    <var name="pressureAdjustedSSH"/>
+    <var name="normalVelocity"/>
+    <var name="velocityZonal"/>
+    <var name="velocityMeridional"/>
+    <var name="vertVelocityTop"/>
+    <var name="normalTransportVelocity"/>
+    <var name="transportVelocityZonal"/>
+    <var name="transportVelocityMeridional"/>
+    <var name="vertTransportVelocityTop"/>
+    <var_array name="activeTracerHorizontalAdvectionTendency"/>
+    <var_array name="activeTracerVerticalAdvectionTendency"/>
+    <var_array name="activeTracerVertMixTendency"/>
+    <var_array name="avgValueWithinOceanLayerRegion"/>
+    <var_array name="avgValueWithinOceanVolumeRegion"/>
+    <var name="CO2_gas_flux"/>
+    <var name="CO2_alt_gas_flux"/>
+    <var name="avgOceanSurfacePhytoC"/>
+    <var name="avgOceanSurfaceDIC"/>
+    <var name="avgOceanSurfaceNO3"/>
+    <var name="avgOceanSurfaceSiO3"/>
+    <var name="avgOceanSurfaceNH4"/>
+    <var name="avgOceanSurfaceDOCr"/>
+    <var name="avgOceanSurfaceFeDissolved"/>
+    <var name="iceFluxPhytoC"/>
+    <var name="iceFluxNO3"/>
+    <var name="iceFluxSiO3"/>
+    <var name="iceFluxNH4"/>
+    <var name="iceFluxFeDissolved"/>
+    <var name="iceFluxDOC"/>
+    <var name="ecosys_diag_photoC_TOT_zint"/>
+</stream>
+
+<stream name="timeSeriesStatsMonthlyOutput"
+        type="output"
+        io_type="netcdf"
+        filename_template="mpaso.hist.am.timeSeriesStatsMonthly.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="00-01-00_00:00:00"
+        clobber_mode="truncate"
+        packages="timeSeriesStatsMonthlyAMPKG"
+        runtime_format="single_file">
+
+    <var name="daysSinceStartOfSim"/>
+    <var name="binBoundaryMerHeatTrans"/>
+    <var name="ssh"/>
+    <var_struct name="tracers"/>
+    <var name="velocityMeridional"/>
+    <var name="velocityZonal"/>
+    <var name="layerThickness"/>
+    <var name="density"/>
+    <var name="potentialDensity"/>
+    <var name="windStressZonal"/>
+    <var name="windStressMeridional"/>
+    <var name="frazilLayerThicknessTendency"/>
+    <var_array name="avgValueWithinOceanRegion"/>
+    <var_array name="avgValueWithinOceanLayerRegion"/>
+    <var_array name="avgValueWithinOceanVolumeRegion"/>
+    <var name="meridionalHeatTransportLatZ"/>
+    <var name="meridionalHeatTransportLat"/>
+    <var_array name="minGlobalStats"/>
+    <var_array name="maxGlobalStats"/>
+    <var_array name="sumGlobalStats"/>
+    <var_array name="rmsGlobalStats"/>
+    <var_array name="avgGlobalStats"/>
+    <var_array name="vertSumMinGlobalStats"/>
+    <var_array name="vertSumMaxGlobalStats"/>
+    <var name="tThreshMLD"/>
+    <var name="dThreshMLD"/>
+    <var name="normalVelocity"/>
+    <var name="vertVelocityTop"/>
+    <var name="normalGMBolusVelocity"/>
+    <var name="vertGMBolusVelocityTop"/>
+    <var_struct name="tracersSurfaceFlux"/>
+    <var name="penetrativeTemperatureFlux"/>
+    <var name="latentHeatFlux"/>
+    <var name="sensibleHeatFlux"/>
+    <var name="longWaveHeatFluxUp"/>
+    <var name="longWaveHeatFluxDown"/>
+    <var name="seaIceHeatFlux"/>
+    <var name="shortWaveHeatFlux"/>
+    <var name="evaporationFlux"/>
+    <var name="seaIceSalinityFlux"/>
+    <var name="seaIceFreshWaterFlux"/>
+    <var name="riverRunoffFlux"/>
+    <var name="iceRunoffFlux"/>
+    <var name="rainFlux"/>
+    <var name="snowFlux"/>
+    <var name="vertNonLocalFlux"/>
+    <var_array name="activeTracersTend"/>
+    <var name="salinitySurfaceRestoringTendency"/>
+    <var_array name="activeTracerHorizontalAdvectionTendency"/>
+    <var_array name="activeTracerVerticalAdvectionTendency"/>
+    <var_array name="activeTracerVertMixTendency"/>
+    <var_array name="activeTracerSurfaceFluxTendency"/>
+    <var_array name="temperatureShortWaveTendency"/>
+    <var_array name="activeTracerNonLocalTendency"/>
+    <var name="areaCellGlobal"/>
+    <var name="areaEdgeGlobal"/>
+    <var name="areaTriangleGlobal"/>
+    <var name="volumeCellGlobal"/>
+    <var name="volumeEdgeGlobal"/>
+    <var name="CFLNumberGlobal"/>
+    <var name="vertDiffTopOfCell"/>
+    <var name="vertViscTopOfCell"/>
+    <var name="bulkRichardsonNumber"/>
+    <var name="boundaryLayerDepth"/>
+    <var name="columnIntegratedSpeed"/>
+    <var name="landIceFreshwaterFlux"/>
+    <var name="landIceHeatFlux"/>
+    <var name="heatFluxToLandIce"/>
+    <var name="mocStreamvalLatAndDepth"/>
+    <var name="mocStreamvalLatAndDepthRegion"/>
+    <var name="binBoundaryMocStreamfunction"/>
+    <var name="surfaceBuoyancyForcing"/>
+    <var name="tendLayerThickness"/>
+    <var name="boundaryLayerDepthSmooth"/>
+    <var name="pressureAdjustedSSH"/>
+    <var name="SSHSquared"/>
+    <var name="velocityZonalSquared"/>
+    <var name="velocityMeridionalSquared"/>
+    <var name="velocityZonalTimesTemperature"/>
+    <var name="velocityMeridionalTimesTemperature"/>
+    <var name="PH_PREV_ALT_CO2_3D"/>
+    <var name="dust_FLUX_IN"/>
+    <var name="IRON_FLUX_IN"/>
+    <var name="PAR_surface"/>
+    <var name="windSpeedSquared10m"/>
+    <var name="atmosphericCO2"/>
+    <var name="atmosphericCO2_ALT_CO2"/>
+    <var name="CO2_gas_flux"/>
+    <var name="CO2_alt_gas_flux"/>
+    <var name="iceFluxPhytoC"/>
+    <var name="iceFluxNO3"/>
+    <var name="iceFluxSiO3"/>
+    <var name="iceFluxNH4"/>
+    <var name="iceFluxFeDissolved"/>
+    <var name="iceFluxDOC"/>
+    <var name="ecosys_diag_photoC_TOT_zint"/>
+    <var name="ecosys_diag_O2_ZMIN"/>
+    <var name="ecosys_diag_O2_ZMIN_DEPTH"/>
+    <var name="ecosys_diag_Jint_Ctot"/>
+    <var name="ecosys_diag_Jint_100m_Ctot"/>
+    <var name="ecosys_diag_Jint_Ntot"/>
+    <var name="ecosys_diag_Jint_100m_Ntot"/>
+    <var name="ecosys_diag_Jint_Ptot"/>
+    <var name="ecosys_diag_Jint_100m_Ptot"/>
+    <var name="ecosys_diag_Jint_Sitot"/>
+    <var name="ecosys_diag_Jint_100m_Sitot"/>
+    <var name="ecosys_diag_photoC_zint"/>
+    <var name="ecosys_diag_photoC_NO3_zint"/>
+    <var name="ecosys_diag_PAR_avg"/>
+    <var name="ecosys_diag_POC_FLUX_IN"/>
+    <var name="ecosys_diag_CaCO3_FLUX_IN"/>
+    <var name="ecosys_diag_auto_graze_TOT"/>
+    <var name="ecosys_diag_zoo_loss"/>
+    <var name="ecosys_diag_photoC_TOT"/>
+    <var name="ecosys_diag_photoC_NO3_TOT"/>
+    <var name="ecosys_diag_NITRIF"/>
+    <var name="ecosys_diag_DENITRIF"/>
+    <var name="ecosys_diag_calcToSed"/>
+    <var name="ecosys_diag_pocToSed"/>
+    <var name="ecosys_diag_SedDenitrif"/>
+    <var name="ecosys_diag_tot_Nfix"/>
+    <var name="ecosys_diag_O2_PRODUCTION"/>
+    <var name="ecosys_diag_O2_CONSUMPTION"/>
+    <var name="ecosys_diag_pH_3D"/>
+    <var name="ecosys_diag_POC_PROD"/>
+    <var name="ecosys_diag_POC_REMIN"/>
+    <var name="ecosys_diag_POC_ACCUM"/>
+    <var name="ecosys_diag_N_lim"/>
+    <var name="ecosys_diag_P_lim"/>
+    <var name="ecosys_diag_Fe_lim"/>
+    <var name="ecosys_diag_SiO3_lim"/>
+    <var name="ecosys_diag_light_lim"/>
+    <var name="ecosys_diag_photoC"/>
+    <var name="ecosys_diag_photoC_NO3"/>
+    <var name="ecosys_diag_photoFe"/>
+    <var name="ecosys_diag_photoNO3"/>
+    <var name="ecosys_diag_photoNH4"/>
+    <var name="ecosys_diag_DOP_uptake"/>
+    <var name="ecosys_diag_PO4_uptake"/>
+    <var name="ecosys_diag_auto_graze"/>
+    <var name="ecosys_diag_auto_loss"/>
+    <var name="ecosys_diag_auto_agg"/>
+    <var name="ecosys_diag_CO2star"/>
+    <var name="ecosys_diag_dCO2star"/>
+    <var name="ecosys_diag_pCO2surface"/>
+    <var name="ecosys_diag_dpCO2"/>
+    <var name="ecosys_diag_pistonVel_CO2"/>
+    <var name="ecosys_diag_Schmidt_CO2"/>
+    <var name="ecosys_diag_xkw"/>
+    <var name="ecosys_diag_pistonVel_O2"/>
+    <var name="ecosys_diag_O2_saturation"/>
+    <var name="ecosys_diag_Schmidt_O2"/>
+    <var name="ecosys_diag_CO2star_ALT_CO2"/>
+    <var name="ecosys_diag_dCO2star_ALT_CO2"/>
+    <var name="ecosys_diag_pCO2surface_ALT_CO2"/>
+    <var name="ecosys_diag_dpCO2_ALT_CO2"/>
+    <var name="ecosys_diag_tot_bSi_form"/>
+    <var name="ecosys_diag_DOC_prod"/>
+    <var name="ecosys_diag_DOC_remin"/>
+    <var name="ecosys_diag_CaCO3_form_zint"/>
+    <var name="ecosys_diag_CaCO3_PROD"/>
+    <var name="ecosys_diag_CaCO3_REMIN"/>
+    <var name="ecosys_diag_tot_CaCO3_form"/>
+    <var name="ecosys_diag_CO3"/>
+    <var name="ecosys_diag_co3_sat_calc"/>
+    <var name="ecosys_diag_co3_sat_arag"/>
+</stream>
+
+<stream name="timeSeriesStatsClimatologyOutput"
+        type="output"
+        io_type="netcdf"
+        filename_template="mpaso.hist.am.timeSeriesStatsClimatology.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="00-03-00_00:00:00"
+        clobber_mode="truncate"
+        packages="timeSeriesStatsClimatologyAMPKG"
+        runtime_format="single_file">
+
+</stream>
+
+<stream name="timeSeriesStatsCustomOutput"
+        type="output"
+        io_type="netcdf"
+        filename_template="mpaso.hist.am.timeSeriesStatsCustom.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="00-01-00_00:00:00"
+        clobber_mode="truncate"
+        packages="timeSeriesStatsCustomAMPKG"
+        runtime_format="single_file">
+
+</stream>
+
+<stream name="timeSeriesStatsDailyRestart"
+        type="input;output"
+        io_type="netcdf"
+        filename_template="mpaso.rst.am.timeSeriesStatsDaily.$Y-$M-$D_$S.nc"
+        filename_interval="output_interval"
+        clobber_mode="truncate"
+        input_interval="none"
+        packages="timeSeriesStatsDailyAMPKG"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none">
+</stream>
+
+<stream name="timeSeriesStatsMonthlyRestart"
+        type="input;output"
+        io_type="netcdf"
+        filename_template="mpaso.rst.am.timeSeriesStatsMonthly.$Y-$M-$D_$S.nc"
+        filename_interval="output_interval"
+        clobber_mode="truncate"
+        input_interval="none"
+        packages="timeSeriesStatsMonthlyAMPKG"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none">
+</stream>
+
+<stream name="timeSeriesStatsClimatologyRestart"
+        type="input;output"
+        io_type="netcdf"
+        filename_template="mpaso.rst.am.timeSeriesStatsClimatology.$Y-$M-$D_$S.nc"
+        filename_interval="output_interval"
+        clobber_mode="truncate"
+        input_interval="initial_only"
+        packages="timeSeriesStatsClimatologyAMPKG"
+        reference_time="01-01-01_00:00:00"
+        output_interval="stream:restart:output_interval">
+</stream>
+
+<stream name="timeSeriesStatsCustomRestart"
+        type="input;output"
+        io_type="netcdf"
+        filename_template="mpaso.rst.am.timeSeriesStatsCustom.$Y-$M-$D_$S.nc"
+        filename_interval="output_interval"
+        clobber_mode="truncate"
+        input_interval="initial_only"
+        packages="timeSeriesStatsCustomAMPKG"
+        reference_time="01-01-01_00:00:00"
+        output_interval="stream:restart:output_interval">
+</stream>
+
+<stream name="ecosys_monthly_flux"
+        type="input"
+        filename_template="/compyfs/inputdata/ocn/mpas-o/oEC60to30v3/oEC60to30v3.monthlySurfaceForcingBGC.171120.nc"
+        input_interval="none"
+        packages="ecosysTracersPKG">
+    <var name="xtime"/>
+    <var name="depositionFluzNO3"/>
+    <var name="depositionFluzNH4"/>
+    <var name="IRON_FLUZ_IN"/>
+    <var name="dust_FLUZ_IN"/>
+    <var name="riverFluzNO3"/>
+    <var name="riverFluzPO4"/>
+    <var name="riverFluzDON"/>
+    <var name="riverFluzDOP"/>
+    <var name="riverFluzSiO3"/>
+    <var name="riverFluzFe"/>
+    <var name="riverFluzDIC"/>
+    <var name="riverFluzALK"/>
+    <var name="riverFluzDOC"/>
+</stream>
+
+<!--
+All streams below this line are auxiliary streams. They are provided as
+groupings of fields that one might be interested in. You can either enable the
+stream to write a file for the fileds, or add the stream to another stream that
+will already be written.  
+-->
+
+<stream name="forcing"
+        type="none"
+        io_type="netcdf"
+        filename_template="mpaso.hist.forcing_variables.$Y-$M-$D_$S.nc"
+        filename_interval="00-01-00_00:00:00"
+        clobber_mode="truncate">
+
+    <stream name="mesh"/>
+    <var_struct name="tracersSurfaceFlux"/>
+    <var_array name="tracersSurfaceValue"/>
+    <var_array name="surfaceVelocity"/>
+    <var_array name="SSHGradient"/>
+    <var_array name="vertNonLocalFlux"/>
+    <var name="surfaceStressMagnitude"/>
+    <var name="surfaceStress"/>
+    <var name="surfaceThicknessFlux"/>
+    <var name="seaIceEnergy"/>
+    <var name="penetrativeTemperatureFlux"/>
+    <var name="fractionAbsorbed"/>
+    <var name="windStressZonal"/>
+    <var name="windStressMeridional"/>
+    <var name="latentHeatFlux"/>
+    <var name="sensibleHeatFlux"/>
+    <var name="longWaveHeatFluxUp"/>
+    <var name="longWaveHeatFluxDown"/>
+    <var name="seaIceHeatFlux"/>
+    <var name="shortWaveHeatFlux"/>
+    <var name="evaporationFlux"/>
+    <var name="seaIceSalinityFlux"/>
+    <var name="seaIceFreshWaterFlux"/>
+    <var name="riverRunoffFlux"/>
+    <var name="iceRunoffFlux"/>
+    <var name="rainFlux"/>
+    <var name="snowFlux"/>
+    <var name="iceFraction"/>
+    <var name="nAccumulatedCoupled"/>
+    <var name="thermalExpansionCoeff"/>
+    <var name="salineContractionCoeff"/>
+</stream>
+
+</streams>

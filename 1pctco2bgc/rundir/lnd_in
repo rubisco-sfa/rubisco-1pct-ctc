@@ -1,0 +1,141 @@
+&clm_inparm
+ albice = 0.60,0.40
+ co2_type = 'diagnostic'
+ create_crop_landunit = .false.
+ dtime = 1800
+ fatmlndfrc = '/compyfs/inputdata/share/domains/domain.lnd.ne30np4_oEC60to30v3.161222.nc'
+ finidat = '20181130_BCRC_1850SPINUP_OIBGC.ne30_oECv3.edison.clm2.r.0370-01-01-00000.nc'
+ fsnowaging = '/compyfs/inputdata/lnd/clm2/snicardata/snicar_drdt_bst_fit_60_c070416.nc'
+ fsnowoptics = '/compyfs/inputdata/lnd/clm2/snicardata/snicar_optics_5bnd_mam_c160322.nc'
+ fsoilordercon = '/compyfs/inputdata/lnd/clm2/paramdata/CNP_parameters_c180529.nc'
+ fsurdat = '/compyfs/inputdata/lnd/clm2/surfdata_map/surfdata_ne30np4_simyr1850_2015_c171018.nc'
+ glc_do_dynglacier = .false.
+ hist_dov2xy = .true.
+ hist_fincl1 = 'TOTPRODC', 'LEAFC_STORAGE', 'LEAFC_XFER', 'FROOTC_STORAGE', 'FROOTC_XFER',
+         'LIVESTEMC_STORAGE', 'LIVESTEMC_XFER', 'DEADSTEMC_STORAGE', 'DEADSTEMC_XFER', 'LIVECROOTC_STORAGE',
+         'LIVECROOTC_XFER', 'DEADCROOTC_STORAGE', 'DEADCROOTC_XFER', 'GRESP_STORAGE', 'GRESP_XFER',
+         'TOTPRODN', 'DWT_PROD100C_GAIN', 'DWT_PROD10C_GAIN', 'COL_FIRE_CLOSS', 'COL_FIRE_NLOSS',
+         'DWT_CLOSS', 'DWT_NLOSS', 'PROD100C', 'PROD10C', 'PRODUCT_CLOSS',
+         'PROD1N', 'PROD10N', 'PROD100N', 'PRODUCT_NLOSS', 'PROD1N_LOSS',
+         'PROD10N_LOSS', 'PROD100N_LOSS', 'COL_FIRE_NLOSS', 'NET_NMIN', 'LEAFN_TO_LITTER',
+         'FROOTN_TO_LITTER', 'M_NPOOL_TO_LITTER', 'M_RETRANSN_TO_LITTER', 'M_LEAFN_TO_LITTER', 'M_LEAFN_STORAGE_TO_LITTER',
+         'M_LEAFN_XFER_TO_LITTER', 'M_FROOTN_TO_LITTER', 'M_FROOTN_STORAGE_TO_LITTER', 'M_FROOTN_XFER_TO_LITTER', 'M_LIVESTEMN_TO_LITTER',
+         'M_LIVESTEMN_STORAGE_TO_LITTER', 'M_LIVESTEMN_XFER_TO_LITTER', 'M_DEADSTEMN_TO_LITTER', 'M_DEADSTEMN_STORAGE_TO_LITTER', 'M_DEADSTEMN_XFER_TO_LITTER',
+         'M_LIVECROOTN_TO_LITTER', 'M_LIVECROOTN_STORAGE_TO_LITTER', 'M_LIVECROOTN_XFER_TO_LITTER', 'M_DEADCROOTN_TO_LITTER', 'M_DEADCROOTN_STORAGE_TO_LITTER',
+         'M_DEADCROOTN_XFER_TO_LITTER', 'M_DEADSTEMN_TO_LITTER_FIRE', 'M_DEADCROOTN_TO_LITTER_FIRE', 'LEAFN_STORAGE', 'LEAFN_XFER',
+         'LIVESTEMN_STORAGE', 'LIVESTEMN_XFER', 'DEADSTEMN_STORAGE', 'DEADSTEMN_XFER', 'LIVECROOTN_STORAGE',
+         'LIVECROOTN_XFER', 'DEADCROOTN_STORAGE', 'DEADCROOTN_XFER', 'FROOTN_STORAGE', 'FROOTN_XFER',
+         'LEAFC_XFER_TO_LEAFC', 'CPOOL_TO_LEAFC', 'LIVESTEMC_XFER_TO_LIVESTEMC', 'CPOOL_TO_LIVESTEMC', 'DEADSTEMC_XFER_TO_DEADSTEMC',
+         'CPOOL_TO_DEADSTEMC', 'CPOOL_TO_LIVECROOTC', 'CPOOL_TO_DEADCROOTC', 'LIVECROOTC_XFER_TO_LIVECROOTC', 'DEADCROOTC_XFER_TO_DEADCROOTC',
+         'CPOOL_TO_FROOTC', 'FROOTC_XFER_TO_FROOTC', 'FROOT_MR', 'LIVESTEM_MR', 'LIVECROOT_MR',
+         'CPOOL_LEAF_GR', 'CPOOL_LEAF_STORAGE_GR', 'TRANSFER_LEAF_GR', 'LITFIRE', 'SOMFIRE',
+         'VEGFIRE', 'FROOTC_TO_LITTER', 'M_LEAFC_TO_LITTER', 'M_LEAFC_STORAGE_TO_LITTER', 'M_LEAFC_XFER_TO_LITTER',
+         'M_FROOTC_TO_LITTER', 'M_FROOTC_STORAGE_TO_LITTER', 'M_FROOTC_XFER_TO_LITTER', 'M_LIVESTEMC_TO_LITTER', 'M_LIVESTEMC_STORAGE_TO_LITTER',
+         'M_LIVESTEMC_XFER_TO_LITTER', 'M_DEADSTEMC_TO_LITTER', 'M_DEADSTEMC_STORAGE_TO_LITTER', 'M_DEADSTEMC_XFER_TO_LITTER', 'M_LIVECROOTC_TO_LITTER',
+         'M_LIVECROOTC_STORAGE_TO_LITTER', 'M_LIVECROOTC_XFER_TO_LITTER', 'M_DEADCROOTC_TO_LITTER', 'M_DEADCROOTC_STORAGE_TO_LITTER', 'M_DEADCROOTC_XFER_TO_LITTER',
+         'M_LEAFC_TO_LITTER_FIRE', 'M_LEAFC_STORAGE_TO_LITTER_FIRE', 'M_LEAFC_XFER_TO_LITTER_FIRE', 'M_FROOTC_TO_LITTER_FIRE', 'M_FROOTC_STORAGE_TO_LITTER_FIRE',
+         'M_FROOTC_XFER_TO_LITTER_FIRE', 'M_LIVESTEMC_TO_LITTER_FIRE', 'M_LIVESTEMC_STORAGE_TO_LITTER_FIRE', 'M_LIVESTEMC_XFER_TO_LITTER_FIRE', 'M_DEADSTEMC_TO_LITTER_FIRE',
+         'M_DEADSTEMC_STORAGE_TO_LITTER_FIRE', 'M_DEADSTEMC_XFER_TO_LITTER_FIRE', 'M_LIVECROOTC_STORAGE_TO_LITTER_FIRE', 'M_DEADCROOTC_STORAGE_TO_LITTER_FIRE', 'M_GRESP_STORAGE_TO_LITTER_FIRE',
+         'M_GRESP_XFER_TO_LITTER_FIRE', 'M_CPOOL_TO_LITTER_FIRE', 'M_LIVEROOTC_TO_LITTER_FIRE', 'M_LIVEROOTC_TO_LITTER_FIRE', 'M_LIVEROOTC_XFER_TO_LITTER_FIRE',
+         'M_DEADROOTC_TO_LITTER_FIRE', 'M_DEADROOTC_XFER_TO_LITTER_FIRE', 'GAP_NLOSS_LITTER', 'FIRE_NLOSS_LITTER', 'HRV_NLOSS_LITTER',
+         'SEN_NLOSS_LITTER', 'GAP_PLOSS_LITTER', 'FIRE_PLOSS_LITTER', 'HRV_PLOSS_LITTER', 'SEN_PLOSS_LITTER',
+         'FSRND', 'FSRNI', 'FSRVD', 'FSRVI', 'CPOOL_FROOT_GR',
+         'CPOOL_FROOT_STORAGE_GR', 'TRANSFER_FROOT_GR', 'CPOOL_LIVESTEM_GR', 'CPOOL_LIVESTEM_STORAGE_GR', 'TRANSFER_LIVESTEM_GR',
+         'CPOOL_DEADSTEM_GR', 'CPOOL_DEADSTEM_STORAGE_GR', 'TRANSFER_DEADSTEM_GR', 'CPOOL_LIVECROOT_GR', 'CPOOL_LIVECROOT_STORAGE_GR',
+         'TRANSFER_LIVECROOT_GR', 'CPOOL_DEADCROOT_GR', 'CPOOL_DEADCROOT_STORAGE_GR', 'TRANSFER_DEADCROOT_GR', 'M_GRESP_STORAGE_TO_LITTER',
+         'M_GRESP_XFER_TO_LITTER', 'M_CPOOL_TO_FIRE', 'NPOOL', 'NPOOL_TO_LEAFN', 'NPOOL_TO_FROOTN',
+         'NPOOL_TO_LIVESTEMN', 'NPOOL_TO_DEADSTEMN', 'NPOOL_TO_LIVECROOTN', 'NPOOL_TO_DEADCROOTN', 'LEAFN_XFER_TO_LEAFN',
+         'FROOTN_XFER_TO_FROOTN', 'LIVESTEMN_XFER_TO_LIVESTEMN', 'DEADSTEMN_XFER_TO_DEADSTEMN', 'LIVECROOTN_XFER_TO_LIVECROOTN', 'DEADCROOTN_XFER_TO_DEADCROOTN',
+         'TOTPRODP', 'LEAFP_STORAGE', 'LEAFP_XFER', 'FROOTP_STORAGE', 'FROOTP_XFER',
+         'LIVESTEMP_STORAGE', 'LIVESTEMP_XFER', 'DEADSTEMP_STORAGE', 'DEADSTEMP_XFER', 'LIVECROOTP_STORAGE',
+         'LIVECROOTP_XFER', 'DEADCROOTP_STORAGE', 'DEADCROOTP_XFER', 'PPOOL', 'PPOOL_TO_LEAFP',
+         'PPOOL_TO_FROOTP', 'PPOOL_TO_LIVESTEMP', 'PPOOL_TO_DEADSTEMP', 'PPOOL_TO_LIVECROOTP', 'PPOOL_TO_DEADCROOTP',
+         'LEAFP_XFER_TO_LEAFP', 'FROOTP_XFER_TO_FROOTP', 'LIVESTEMP_XFER_TO_LIVESTEMP', 'DEADSTEMP_XFER_TO_DEADSTEMP', 'LIVECROOTP_XFER_TO_LIVECROOTP',
+         'DEADCROOTP_XFER_TO_DEADCROOTP', 'DWT_PROD100N_GAIN', 'DWT_PROD10N_GAIN', 'DWT_PROD100P_GAIN', 'DWT_PROD10P_GAIN',
+         'WOOD_HARVESTP', 'DWT_PLOSS', 'DWT_NLOSS'
+ hist_mfilt = 1
+ hist_nhtfrq = 0
+ maxpatch_glcmec = 0
+ maxpatch_pft = 17
+ more_vertlayers = .false.
+ nsegspc = 20
+ nu_com = 'RD'
+ paramfile = '/compyfs/inputdata/lnd/clm2/paramdata/clm_params_c180524.nc'
+ spinup_state = 0
+ suplnitro = 'NONE'
+ suplphos = 'NONE'
+ urban_hac = 'ON'
+ urban_traffic = .false.
+ use_century_decomp = .false.
+ use_cn = .true.
+ use_crop = .false.
+ use_dynroot = .false.
+ use_fates = .false.
+ use_lch4 = .true.
+ use_nitrif_denitrif = .true.
+ use_vertsoilc = .true.
+/
+&ndepdyn_nml
+ model_year_align_ndep = 1850
+ ndepmapalgo = 'bilinear'
+ stream_fldfilename_ndep = '/compyfs/inputdata/lnd/clm2/ndepdata/fndep_elm_cbgc_exp_simyr1849-2006_1.9x2.5_c171012.nc'
+ stream_year_first_ndep = 1850
+ stream_year_last_ndep = 1850
+/
+&pdepdyn_nml
+ model_year_align_pdep = 2000
+ pdepmapalgo = 'bilinear'
+ stream_fldfilename_pdep = '/compyfs/inputdata/lnd/clm2/pdepdata/fpdep_clm_hist_simyr2000_1.9x2.5_c150929.nc'
+ stream_year_first_pdep = 2000
+ stream_year_last_pdep = 2000
+/
+&popd_streams
+ model_year_align_popdens = 1850
+ popdensmapalgo = 'bilinear'
+ stream_fldfilename_popdens = '/compyfs/inputdata/lnd/clm2/firedata/clmforc.Li_2012_hdm_0.5x0.5_AVHRR_simyr1850-2010_c130401.nc'
+ stream_year_first_popdens = 1850
+ stream_year_last_popdens = 1850
+/
+&light_streams
+ lightngmapalgo = 'bilinear'
+ stream_fldfilename_lightng = '/compyfs/inputdata/atm/datm7/NASA_LIS/clmforc.Li_2012_climo1995-2011.T62.lnfm_Total_c140423.nc'
+ stream_year_first_lightng = 0001
+ stream_year_last_lightng = 0001
+/
+&lai_streams
+/
+&clm_canopyhydrology_inparm
+/
+&clm_soilhydrology_inparm
+/
+&dynamic_subgrid
+ do_harvest = .true.
+ do_transient_pfts = .true.
+ flanduse_timeseries = '/compyfs/inputdata/lnd/clm2/surfdata_map/landuse.timeseries_ne30np4_hist_simyr1850_c20171102.nc'
+/
+&finidat_consistency_checks
+ check_finidat_fsurdat_consistency = .false.
+ check_finidat_year_consistency = .false.
+/
+&dynpft_consistency_checks
+/
+&clmu_inparm
+/
+&clm_soilstate_inparm
+/
+&clm_pflotran_inparm
+/
+&betr_inparm
+/
+&ch4par_in
+ fin_use_fsat = .true.
+ use_aereoxid_prog = .true.
+/
+&clm_humanindex_inparm
+/
+!#--------------------------------------------------------------------------------------------------------------------------
+!# lnd_in:: Comment:
+!# This namelist was created using the following command-line:
+!#     /qfs/projects/scratch/minxu/rubisco_cbgc/cbgc_1pct/20191020_CO21PCTBGC_RUBISCO_CNPCTC20TR_OIBGC_compy/components/clm/bld/CLM build-namelist -infile /qfs/people/xumi699/E3SM_simulations/20191020.CO21PCTBGC_RUBISCO_CNPCTC20TR_OIBGC.ne30_oECv3.compy/case_scripts/Buildconf/clmconf/namelist -csmdata /compyfs/inputdata -inputdata /qfs/people/xumi699/E3SM_simulations/20191020.CO21PCTBGC_RUBISCO_CNPCTC20TR_OIBGC.ne30_oECv3.compy/case_scripts/Buildconf/clm.input_data_list -ignore_ic_year -namelist  &clm_inparm  start_ymd=18500101  / -use_case 20thC_CMIP6bgc_transient -res ne30np4 -clm_start_type startup -envxml_dir /qfs/people/xumi699/E3SM_simulations/20191020.CO21PCTBGC_RUBISCO_CNPCTC20TR_OIBGC.ne30_oECv3.compy/case_scripts -l_ncpl 48 -lnd_frac /compyfs/inputdata/share/domains/domain.lnd.ne30np4_oEC60to30v3.161222.nc -glc_nec 0 -co2_ppmv 284.317 -co2_type diagnostic -config /qfs/people/xumi699/E3SM_simulations/20191020.CO21PCTBGC_RUBISCO_CNPCTC20TR_OIBGC.ne30_oECv3.compy/case_scripts/Buildconf/clmconf/config_cache.xml -bgc bgc -nutrient cnp -nutrient_comp_pathway rd -soil_decomp ctc -methane -nitrif_denitrif -mask oEC60to30v3
+!# For help on options use: /qfs/projects/scratch/minxu/rubisco_cbgc/cbgc_1pct/20191020_CO21PCTBGC_RUBISCO_CNPCTC20TR_OIBGC_compy/components/clm/bld/CLM build-namelist -help
+!#--------------------------------------------------------------------------------------------------------------------------

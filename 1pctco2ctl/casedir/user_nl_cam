@@ -1,0 +1,10 @@
+! Users should add all user specific namelist changes below in the form of 
+! namelist_var = new_namelist_value 
+ 
+ co2vmr_rad         = 284.317000e-6
+ nhtfrq =  0,
+ mfilt  = 1,
+ avgflag_pertape = 'A',
+ fexcl1 = 'CFAD_SR532_CAL','ANSNOW','ANRAIN','AQSNOW','AQRAIN','SNOWQM'
+ fincl1 = 'RHREFHT','DF_O3','AQSO4_O3','AQSO4_H2O2','TREFHTMN:M','TREFHTMX:X','FLUT','PRECT','PRECC','U200','U850','TMQ','OMEGA500','IEFLX'
+ clubb_c14 = 1.17D0
